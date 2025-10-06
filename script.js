@@ -476,6 +476,16 @@ function clearIndexedDB() {
 		const db = event.target.result;
 
 		const transaction = db.transaction(storeName, "readwrite");
+		transaction.onerror = (event) => {
+			const error = event.target.error;
+			if (error.name === 'NotFoundError') {
+				event.preventDefault();
+				currentPosition = 1;
+				writeValueToLocalStorage("currentPosition", currentPosition);
+				resetSheet();
+			}
+		};
+
 		const store = transaction.objectStore(storeName);
 
 		const clearRequest = store.clear();
