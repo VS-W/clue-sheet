@@ -472,20 +472,11 @@ function resetSheet() {
 }
 
 function clearIndexedDB() {
-	indexedDB.open(dbName, 1).onsuccess = function (event) {
+	const request = indexedDB.open(dbName, 1);
+	request.onsuccess = function (event) {
 		const db = event.target.result;
 
 		const transaction = db.transaction(storeName, "readwrite");
-		transaction.onerror = (event) => {
-			const error = event.target.error;
-			if (error.name === 'NotFoundError') {
-				event.preventDefault();
-				currentPosition = 1;
-				writeValueToLocalStorage("currentPosition", currentPosition);
-				resetSheet();
-			}
-		};
-
 		const store = transaction.objectStore(storeName);
 
 		const clearRequest = store.clear();
@@ -498,6 +489,11 @@ function clearIndexedDB() {
 				resetSheet();
 			};
 		};
+	};
+
+	request.onupgradeneeded = function (event) {
+		const db = event.target.result;
+		db.createObjectStore(storeName, { autoIncrement: true });
 	};
 }
 
