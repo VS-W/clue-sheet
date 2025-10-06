@@ -192,3 +192,21 @@ input[type="text"] {
 	color: white;
 	text-align: center;
 }
+
+.language {
+	color: white;
+	font-family: "Nunito", sans-serif;
+	font-size: 1.25em;
+}
+
+.language span {
+	color: white;
+	cursor: pointer;
+	font-family: "Nunito", sans-serif;
+	font-variant: small-caps;
+	padding: 0.5em;
+}
+
+.language span:hover {
+	color: rgb(122, 122, 255);
+}
