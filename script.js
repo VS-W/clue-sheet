@@ -1,104 +1,169 @@
-function get_template(player_number) {
-	const dataTemplate = {
+const translations = {
+	"page-title": {
+		"en": "Clue Sheet",
+		"fr": "Feuille Cluedo"
+	},
+	"instructions-title": {
+		"en": "Instructions",
+		"fr": "Instructions"
+	},
+	"instructions-main": {
+		"en": "Select the number of players in the game and enter their initials in the appropriate boxes.<br>If you enter 2 players only, the sheet assumes that you are playing with the standard two player rules of having 4 of the cards distributed on the board and automatically generates another column for these \"board\" cards.",
+		"fr": "Sélectionnez le nombre de joueurs et entrez leurs initiales dans les champs appropriés.<br>Si vous entrez seulement 2 joueurs, la feuille appliquera la règle standard à deux joueurs avec 4 cartes placées sur le plateau et générera automatiquement une colonne pour ces cartes \"plateau\"."
+	},
+	"instructions-buttons": {
+		"en": "Click a cell once to mark an \"X\".<br>Click it again to mark a \"?\".<br>Third click marks it as \"-\".<br>Another click will clear the cell.",
+		"fr": "Cliquez une fois sur une case pour marquer un \"X\".<br>Cliquez à nouveau pour marquer un \"?\".<br>Le troisième clic marque un \"-\".<br>Un autre clic effacera la case."
+	},
+	"instructions-click-headings": {
+		"en": "You can click on a suspect/weapon/location to highlight it, e.g. to indicate it's a card you've already shown.",
+		"fr": "Vous pouvez cliquer sur un suspect/arme/lieu pour le surligner, par exemple pour indiquer une carte que vous avez déjà montrée."
+	},
+	"instructions-undo-redo": {
+		"en": "Undo and redo buttons across the top of the page.<br>Reset button at the bottom of the page.",
+		"fr": "Boutons Annuler et Rétablir en haut de la page.<br>Bouton Réinitialiser en bas de la page."
+	},
+	"number-of-players-text": {
+		"en": "# of Players:",
+		"fr": "Nombre de joueurs:"
+	},
+	"generate-text": {
+		"en": "Generate",
+		"fr": "Générer"
+	},
+	"reset-text": {
+		"en": "RESET",
+		"fr": "RÉINITIALISER"
+	},
+	"initials-of-player": {
+		"en": "Initials of Player",
+		"fr": "Initiales du joueur"
+	},
+	"sheetData": {
+		"sheetHeadings": {
+			"suspects": {
+				"en": "suspects"
+			},
+			"weapons": {
+				"en": "weapons"
+			},
+			"locations": {
+				"en": "locations"
+			},
+		},
 		"suspects": {
-			"Olive": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Green": {
+				"en": "Green",
+				"fr": "Olive"
 			},
-			"Moutarde": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Mustard": {
+				"en": "Mustard",
+				"fr": "Moutarde"
 			},
-			"Pervenche": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Peacock": {
+				"en": "Peacock",
+				"fr": "Pervenche"
 			},
-			"Violet": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Plum": {
+				"en": "Plum",
+				"fr": "Violet"
 			},
-			"Rose": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Scarlet": {
+				"en": "Scarlet",
+				"fr": "Rose"
 			},
-			"Leblanc": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
-			}
+			"White": {
+				"en": "White",
+				"fr": "Leblanc" }
 		},
 		"weapons": {
-			"Chandelier": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Candle Stick": {
+				"en": "Candle Stick",
+				"fr": "Chandelier"
 			},
-			"Poignard": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Dagger": {
+				"en": "Dagger",
+				"fr": "Poignard"
 			},
-			"Tuyau": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Lead Pipe": {
+				"en": "Lead Pipe",
+				"fr": "Tuyau"
 			},
 			"Revolver": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+				"en": "Revolver",
+				"fr": "Revolver"
 			},
-			"Corde": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Rope": {
+				"en": "Rope",
+				"fr": "Corde"
 			},
-			"Clé": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
-			}
+			"Wrench": {
+				"en": "Wrench",
+				"fr": "Clé" }
 		},
 		"locations": {
-			"Salle de reception": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Ballroom": {
+				"en": "Ballroom",
+				"fr": "Salle de reception"
 			},
-			"Salle de billard": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Billiard Room": {
+				"en": "Billiard Room",
+				"fr": "Salle de billard"
 			},
-			"Jardin d'hiver": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Conservatory": {
+				"en": "Conservatory",
+				"fr": "Jardin d'hiver"
 			},
-			"Salle à manger": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Dining Room": {
+				"en": "Dining Room",
+				"fr": "Salle à manger"
 			},
-			"Entrée": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Hall": {
+				"en": "Hall",
+				"fr": "Entrée"
 			},
-			"Cuisine": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Kitchen": {
+				"en": "Kitchen",
+				"fr": "Cuisine"
 			},
-			"Bibliothèque": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Library": {
+				"en": "Library",
+				"fr": "Bibliothèque"
 			},
-			"Sallon": {
-				"cells": Array(player_number).fill(0),
-				"shown": false
+			"Lounge": {
+				"en": "Lounge",
+				"fr": "Sallon"
 			},
-			"Bureau": {
-				"cells": Array(player_number).fill(0),
+			"Study": {
+				"en": "Study",
+				"fr": "Bureau"
+			}
+		}
+	}
+};
+
+function translate() {
+	document.title = translations["page-title"][currentLanguage] || translations["page-title"]["en"];
+	const translateElements = ["page-title", "instructions-title", "instructions-main", "instructions-buttons", "instructions-click-headings", "instructions-undo-redo", "number-of-players-text", "generate-text", "reset-text"];
+	translateElements.forEach(id => {
+		document.querySelector("#" + id).innerHTML = translations[id][currentLanguage] || translations[id]["en"];
+	})
+}
+
+function getTemplate(numberOfPlayers) {
+	let template = {};
+	for (heading in translations["sheetData"]["sheetHeadings"]) {
+		let category = translations["sheetData"]["sheetHeadings"][heading][currentLanguage] || translations["sheetData"]["sheetHeadings"][heading]["en"];
+		template[category] = {};
+		for (item in translations["sheetData"][heading]) {
+			template[category][translations["sheetData"][heading][item][currentLanguage] || translations["sheetData"][heading][item]["en"]] = {
+				"cells": Array(numberOfPlayers).fill(0),
 				"shown": false
 			}
 		}
-	};
-	return dataTemplate;
+	}
+	return template;
 }
-
-// default data for initial load (3 columns is a safe default)
-let data = get_template(3);
-let currentPosition = 0;
-const dbName = "database";
-const storeName = "dataStore";
 
 function toggleCell(block, text, column) {
 	writeDataToIndexedDB(data);
@@ -215,8 +280,8 @@ function generateRows(block, columns) {
 }
 
 function generateSheet() {
-	const numberOfPlayers = document.querySelector("#numUsers").value;
-	const playerInitialsInput = Array.from(document.querySelectorAll(".userEntry")).map(entry => {
+	const numberOfPlayers = parseInt(document.getElementById("numUsers").value);
+	const playerInitialsInput = Array.from(document.querySelectorAll("#userFormContainer .userEntry")).map(entry => {
 		return entry.querySelector("input").value;
 	});
 	const sheet = document.querySelector("#sheet");
@@ -236,8 +301,8 @@ function generateSheet() {
 		boardRule = true;
 	}
 
-	// (re)create data structure with the correct number of columns
-	data = get_template(parseInt(colCount, 10));
+	// create data structure with the correct number of columns
+	data = getTemplate(colCount);
 
 	document.querySelector(".userEntryContainer").classList.add("hidden");
 	sheet.innerHTML = "";
@@ -265,9 +330,11 @@ function generateSheet() {
 	}
 
 	if (boardRule) {
-		const playerInitials = Array.from(document.querySelectorAll(".playerInitial"));
-		playerInitials[playerInitials.length - 1].textContent = "B";
-		playerInitials[playerInitials.length - 1].classList.add("playerInitialBoard");
+		headerRows.forEach(headerRow => {
+			const lastPlayerInitialBox = Array.from(headerRow.querySelectorAll(".playerInitial"))[colCount - 1];
+			lastPlayerInitialBox.textContent = "B";
+			lastPlayerInitialBox.classList.add("playerInitialBoard");
+		});
 	}
 
 	writeValueToLocalStorage("sheetActive", true);
@@ -275,6 +342,7 @@ function generateSheet() {
 
 function generateInitialsForm() {
 	let numUsers = parseInt(document.getElementById("numUsers").value);
+
 	if (numUsers < 2) {
 		numUsers = 2;
 		document.getElementById("numUsers").value = 2;
@@ -287,7 +355,7 @@ function generateInitialsForm() {
 		const userEntry = document.createElement("div");
 		userEntry.className = "userEntry";
 		userEntry.innerHTML = `
-			<label for="user${i}">Initiales du joueur ${i + 1} :</label>
+			<label for="user${i}">${translations["initials-of-player"][currentLanguage] || translations["initials-of-player"]["en"]} ${i + 1}:</label>
 			<input type="text" id="user${i}" name="user${i}">
 		`;
 		userFormContainer.appendChild(userEntry);
@@ -295,10 +363,13 @@ function generateInitialsForm() {
 }
 
 function prefill() {
-	if (readValueFromLocalStorage("sheetActive")) {
+	if (readValueFromLocalStorage("numberOfPlayers")) {
 		document.querySelector("#numUsers").value = readValueFromLocalStorage("numberOfPlayers");
+		generateInitialsForm();
+	}
 
-		const initialFields = Array.from(document.querySelectorAll(".userEntry")).map(entry => {
+	if (readValueFromLocalStorage("sheetActive")) {
+		const initialFields = Array.from(document.querySelectorAll("#userFormContainer .userEntry")).map(entry => {
 			return entry.querySelector("input");
 		});
 
@@ -332,8 +403,6 @@ function writeDataToIndexedDB(newData) {
 	request.onsuccess = function (event) {
 		const db = event.target.result;
 		const store = db.transaction(storeName, "readwrite").objectStore(storeName, { autoIncrement: true });
-
-		console.log(currentPosition)
 		store.put(newData, currentPosition).onsuccess = function (event) {
 			currentPosition++;
 			writeValueToLocalStorage("currentPosition", currentPosition);
@@ -411,7 +480,7 @@ function clearIndexedDB() {
 
 		const clearRequest = store.clear();
 		clearRequest.onsuccess = function (event) {
-			data = structuredClone(dataTemplate)
+			data = getTemplate(readValueFromLocalStorage("numberOfPlayers"));
 			const putRequest = store.put(data, 0);
 			putRequest.onsuccess = function (event) {
 				currentPosition = 1;
@@ -423,7 +492,6 @@ function clearIndexedDB() {
 }
 
 function getDBEntry(id) {
-	console.log(id);
 	indexedDB.open(dbName, 1).onsuccess = function (event) {
 		const db = event.target.result;
 		db.transaction(storeName, "readonly").objectStore(storeName).get(id).onsuccess = function (event) {
@@ -467,7 +535,22 @@ function readValueFromLocalStorage(key) {
 	}
 }
 
+function setLanguage(lang) {
+	clearIndexedDB();
+	currentLanguage = lang;
+	writeValueToLocalStorage("language", currentLanguage)
+	translate();
+	generateInitialsForm();
+}
+
+let currentLanguage = readValueFromLocalStorage("language") || "en";
+let data = getTemplate(3);
+let currentPosition = 0;
+const dbName = "database";
+const storeName = "dataStore";
+
 document.addEventListener("DOMContentLoaded", () => {
+	translate();
 	generateInitialsForm();
 
 	document.getElementById("numUsers").addEventListener("change", generateInitialsForm);
@@ -475,6 +558,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	document.getElementById("undoButton").addEventListener("click", undo);
 	document.getElementById("redoButton").addEventListener("click", redo);
 	document.getElementById("resetButton").addEventListener("click", clearIndexedDB);
+	document.getElementById("translate-en").addEventListener("click", () => {
+		setLanguage("en");
+	});
+	document.getElementById("translate-fr").addEventListener("click", () => {
+		setLanguage("fr");
+	});
 	
 	prefill();
 });
